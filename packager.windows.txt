@@ -1,0 +1,5 @@
+
+
+"packager": "electron-packager . RECDAT --platform=win32,darwin --arch=x64 --icon=assets/icon.ico"
+
+"packager": "electron-packager . RECDAT --platform=linux --arch=armv7l --icon=assets/icon.ico"
