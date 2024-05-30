@@ -30,8 +30,6 @@ const encenderCamara = () => {
     });
 };
 
-
-
 // Función para dibujar en el canvas
 function tick() {
   canvasElement.height = video.videoHeight;
@@ -72,25 +70,25 @@ qrcode.callback = (respuesta) => {
       console.log('respuesta leida: ', respuesta);
       let parsedInfo = JSON.parse(respuesta);
       console.log(parsedInfo);
-      parsedInfo = JSON.parse(parsedInfo.toString())
-      console.log('Datos parseados de nuevo: ',parsedInfo);
+      parsedInfo = JSON.parse(parsedInfo.toString());
+      console.log('Datos parseados de nuevo: ', parsedInfo);
 
       if (parsedInfo.uid && parsedInfo.name && parsedInfo.surname && parsedInfo.email && parsedInfo.date) {
         console.log('Inicia el escaneo???');
         setTimeout(() => {
-        qrInfo = parsedInfo;
-        Swal.fire("Registro exitoso");
-        activarSonido();
-        setTimeout(tomarFoto, 3000);
-        resetearPrograma();
-        setTimeout(cerrarModalLogQR, 7000);
+          qrInfo = parsedInfo;
+          Swal.fire("Registro exitoso");
+          activarSonido();
+          setTimeout(tomarFoto, 3000);
+          resetearPrograma();
+          setTimeout(cerrarModalLogQR, 7000);
         }, 10000);
       } else {
         throw new Error("Invalid QR structure");
       }
     } catch (error) {
       Swal.fire("Código QR no válido", "Por favor, escanee un código QR válido.", "error");
-      resetearPrograma()
+      resetearPrograma();
     }
   }
 };
@@ -123,11 +121,33 @@ function tomarFoto() {
   setTimeout(resetearPrograma, 3000);
 }
 
-
 // Guardar foto en almacenamiento local del navegador
 function guardarFotoEnLocalStorage(foto) {
   localStorage.setItem('fotoQR', foto);
   console.log("Imagen guardada en el almacenamiento local.");
+}
+
+// Guardar información del QR en el almacenamiento local del navegador
+function guardarQRInfoEnLocalStorage(info) {
+  localStorage.setItem('qrInfo', JSON.stringify(info));
+  console.log("Información del QR guardada en el almacenamiento local.");
+}
+
+// Descargar la imagen en el navegador
+function descargarImagenBase64(nombreArchivo, base64String) {
+  // Crear un enlace invisible
+  const enlace = document.createElement('a');
+  enlace.href = base64String;
+  enlace.download = `${nombreArchivo}.png`;
+
+  // Añadir el enlace al cuerpo
+  document.body.appendChild(enlace);
+
+  // Hacer clic en el enlace para iniciar la descarga
+  enlace.click();
+
+  // Eliminar el enlace del cuerpo
+  document.body.removeChild(enlace);
 }
 
 // Resetear el programa para capturar otro QR
@@ -147,6 +167,8 @@ function getPhotoFromLocalStorage() {
   foto = localStorage.getItem("fotoQR");
   if (foto) {
     console.log(`![capturaLog.png](${foto})`);
+    // Descargar la foto al obtenerla del almacenamiento local
+    descargarImagenBase64('capturaLog', foto);
   } else {
     console.log("No se encontró ninguna imagen en el Local Storage.");
   }
