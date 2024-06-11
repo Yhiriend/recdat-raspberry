@@ -1,0 +1,34 @@
+* {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    display: grid;
+    margin: auto;
+    background-color: #cccccc;
+    border-radius: 5px;
+    /*---NUEVA LINEA---*/
+    width: 250px;
+    height: 300px;
+  }
+
+  #stbt {
+    margin: 20px 0px 20px 0px;
+
+    align-items: center;
+    justify-content: center;
+    translate: 55%;
+    align-items: center;
+  }
+
+  #batteryTemperature, #chargingStatus, #batteryLevel {
+    border: 2px solid #003366;
+    border-radius: 5px;
+    padding: 10px 5px 10px 5px;
+  }
