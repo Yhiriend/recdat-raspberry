@@ -8,7 +8,9 @@
   <body>
     <nav id="statebar">
       <div id="navmanager">
-        <img id="radio" class="state" src="../img/vinyl_fill.svg" alt="" />
+        <div id="elnuevocheck">
+          <div id="circle"></div>
+        </div>
         
         <div id="sysicon">
           <img id="logosBWA" class="batteryIcon" src="../img/transitions/battery_full.svg" alt=""/>
@@ -33,15 +35,38 @@
                       <div class="login-container-network">
                         <section class="bloqForNet">
                           <img src="../img/gear_ntwk.svg" alt="" id="bloqlognet" />
-                          <button class="actions" type="submit" id="sync" onclick="syncData()">
+                          <button class="actions" type="submit" id="sync">
                             <div class="loader-container">
-                              <div class="loader" id="loader"></div>
+                              <div class="loader" id="loader">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                              </div>
                             </div>
                             Sincronizar
                           </button>
+                          
               
                           <button id="net" class="actions" type="submit">Red</button>
                           <button id="poweroff" class="poweroff" type="submit">Apagar</button>
+                        </section>
+
+                        <section id="listwifi" style="display: none;">
+                          <img src="../img/close_window.svg" alt="" id="arrow-back">
+                          <img src="../img/wifi_ntwk.svg" alt="" id="iconwifi"/>
+                          <h2>Conectarse a una red WiFi</h2>
+                          <input type="text" id="ssid" placeholder="Nombre o SSID">
+                          <input type="password" id="passwordWifi" placeholder="Contraseña">
+                          <img src="../img/no_hideWifi.svg" alt="toggle password visibility" class="toggle-password-wifi">
+                          <button id="connect">Conectar</button>
+
+                          <div id="listscroll">
+                            <ul id="wifi-networks"></ul>
+                          </div>
                         </section>
                       </div>
                     </div>
@@ -67,13 +92,16 @@
                         <img src="../img/lock.svg" alt="" id="bloqlog" />
                         <form id="formLogin">
                           <div class="form-group">
-                            <input type="text" id="username" name="username" required placeholder="usuario"/>
+                              <img src="../img/icon_user.svg" alt="" class="input-icon">
+                              <input type="text" id="username" name="username" required placeholder="usuario"/>
                           </div>
                           <div class="form-group">
-                            <input type="password" id="password" name="password" required placeholder="contraseña"/>
+                              <img src="../img/icon_password.svg" alt="" class="input-icon">
+                              <input type="password" id="password" name="password" required placeholder="contraseña"/>
+                              <img src="../img/no_hide.svg" alt="toggle password visibility" class="toggle-password">
                           </div>
                           <button id="loginbtn" class="login-button" type="submit">Ingresar</button>
-                        </form>
+                      </form>
                       </div>
 
                       <div id="logued" style="display: none;">
@@ -100,18 +128,18 @@
     </nav>
 
     <div style="text-align: center">
-      <img id="logo" src="../img/logoPNG.png" alt="" />
+      <img id="logo" src="../img/recdat_blue.png" alt="" />
     </div>
 
     <div style="text-align: center" id="botones">
       <button id="logqr">Registro por QR</button>
       <div id="myModal" class="modal">
         <div class="modal-content">
-          <span class="close">&times;</span>
+          <span class="close" id="closeQr">&times;</span>
           <section id="modalFrame">
 
             <div id="fatherscan" class="row justify-content-center mt-5">
-              <h5 class="text-center">Escanear código QR</h5>
+              <h5 class="text-center">Escaneando QR...</h5>
               <div id="containerscan" class="col-sm-4 shadow p-3">
                 <div id="sectionscan" class="row text-center">
                   <a id="btn-scan-qr" href="#">
@@ -135,9 +163,9 @@
       </div>
 
       <button id="logmanual">Registro manual</button>
-      <div id="myModalManual" class="modalManual">
+      <div id="myModalManual" class="modalManual" style="display: none">
         <div class="modal-content-Manual">
-          <span class="closeManual">&times;</span>
+          <span class="closeManual" id="closeManualWindow">&times;</span>
           <section id="modalFrameManual">
 
             <div class="content-text-manual">
@@ -146,28 +174,52 @@
                   <img src="../img/register.svg" alt="" id="bloqlog-manual" />
                   <form id="firstForm">
                     <div class="labeltitle">
-                      <label for="">Ingrese su correo o ID asignado</label>
+                      <label for="">Ingrese su correo asignado</label>
                     </div>
                     <div class="form-group-manual">
-                      <input id="id/email" required />
+                      <input id="id_email" required />
                     </div>
-                    <h6>
-                      Estimado docente, recuerde que su ID único y/o su correo
-                      corresponden a los registrados en el sistema. En caso contrario el
-                      registro no podrá ser validado...
+                    <h6 style="text-align: center;">
+                      Estimado docente, recuerde que el correo a diligenciar corresponde al asignado por el 
+                      administrador o el registrado en el sistema. De no ser asi su
+                      asistencia no podrá ser validada...
                     </h6>
-                    <button class="login-button" type="submit">Continuar</button>
+                    <button class="login-button" id="nextform" type="submit">Continuar</button>
                   </form>
         
                   <form id="answerTheQuestion" style="display: none">
                     <div class="labeltitle">
-                      <label for="">¿Cual es la pregunta objetivo?</label>
+                      <label for="" id="labelQuestion">¿Cual es la pregunta objetivo?</label>
                     </div>
                     <div class="form-group-manual" id="secondInput">
                       <input id="answer" required />
                     </div>
-                    <button class="login-button-manual" type="submit">Continuar</button>
+                    <button class="login-button-manual" id="login-button-manual" type="submit">Continuar</button>
                   </form>
+
+                  <script src="renderer.js"></script>
+
+                  <section id="takePhoto" style="display: none">
+                    <div id="didi">
+                      <h2 id="takingphoto">Tomando la foto...</h2>
+                      <video id="videoManual" class="img-fluid" autoplay playsinline></video>
+                      <canvas hidden id="canvasManual" class="img-fluid"></canvas>
+                    </div>
+                    <script src="./scripts/fotomanual.js"></script>
+                </section>
+
+                
+                  <div id="myModalNetwork" class="modalNetwork3">
+                    <section id="modalFrameNetwork2">
+                      <div class="window-notice2" id="window-notice2">
+                        <div class="content2">
+                          <img src="../img/alert_user.svg" alt="">
+                                <h1 id="warn2" style="color: #797979;"></h1>
+                        </div>
+                      </div>
+                    </section>
+                </div>
+                
                 </section>
               </div>
             </div>
