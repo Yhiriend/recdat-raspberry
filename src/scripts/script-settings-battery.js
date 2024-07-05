@@ -5,18 +5,20 @@ navigator.getBattery().then(function (battery) {
 
     var batteryIcon = document.getElementById("logosBWA");
     if (charging) {
-      batteryIcon.src = "../img/transitions/battery_charging.svg";
-    } else if (level >= 100) {
+       batteryIcon.src = "../img/transitions/battery_charging.svg";
+    } else if (level >= 95) {
       batteryIcon.src = "../img/transitions/battery_full.svg";
     } else if (level >= 90) {
+      batteryIcon.src = "../img/transitions/battery_6_bar.svg";
+    } else if (level >= 85) {
       batteryIcon.src = "../img/transitions/battery_5_bar.svg";
-    } else if (level >= 80) {
+    } else if (level >= 68) {
       batteryIcon.src = "../img/transitions/battery_4_bar.svg";
-    } else if (level >= 60) {
+    } else if (level >= 51) {
       batteryIcon.src = "../img/transitions/battery_3_bar.svg";
-    } else if (level >= 40) {
+    } else if (level >= 34) {
       batteryIcon.src = "../img/transitions/battery_2_bar.svg";
-    } else if (level >= 20) {
+    } else if (level >= 17) {
       batteryIcon.src = "../img/transitions/battery_1_bar.svg";
     } else if (level >= 10) {
       batteryIcon.src = "../img/transitions/battery_alert.svg";

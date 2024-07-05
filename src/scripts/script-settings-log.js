@@ -16,3 +16,15 @@ closeModal.addEventListener('click', function() {
   modal.style.display = 'none';
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  const togglePasswordW = document.querySelector('.toggle-password-wifi');
+  const passwordInputW = document.getElementById('passwordWifi');
+  const hideW = "../img/hideWifi.svg";
+  const nohideW = "../img/no_hideWifi.svg";
+
+  togglePasswordW.addEventListener('click', function () {
+      const type = passwordInputW.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInputW.setAttribute('type', type);
+      this.src = type === 'password' ? nohideW : hideW;
+  });
+});
