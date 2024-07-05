@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "recdat",
   "productName": "RECDAT",
   "version": "1.0.0",
   "description": "My Electron application description",
@@ -10,10 +10,12 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
-    "packager": "electron-packager . RECDAT --platform=linux --arch=armv7l --icon=assets/icon.ico"
+    "packager": "electron-packager . RECDAT --platform=linux --arch=armv7l --icon=assets/icon.ico",
+    "builder": "electron-builder"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-appx": "^7.4.0",
     "@electron-forge/maker-deb": "^7.4.0",
     "@electron-forge/maker-rpm": "^7.4.0",
     "@electron-forge/maker-squirrel": "^7.4.0",
@@ -21,20 +23,85 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron/fuses": "^1.8.0",
-    "electron": "30.0.1",
+    "electron": "^30.0.9",
+    "electron-builder": "^24.13.3",
     "electron-packager": "^17.1.2",
     "webpack": "^5.91.0"
   },
-  "keywords": [],
+  "keywords": [
+    "electron",
+    "raspberry",
+    "schoolar",
+    "assistances",
+    "firebase",
+    "QR"
+  ],
   "author": {
     "name": "Jcuetomorelo37",
     "email": "cuetoreach@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.2.0",
     "electron-reload": "^2.0.0-alpha.1",
     "electron-reloader": "^1.2.3",
     "electron-squirrel-startup": "^1.0.0",
+    "firebase-admin": "^12.1.1",
+    "node-fetch": "^3.3.2",
+    "node-wifi": "^2.0.16",
+    "sanitize-filename": "^1.6.3",
+    "simple-keyboard": "^3.7.87",
     "sqlite3": "^5.1.7"
+  },
+  "build": {
+    "linux": {
+      "target": [
+        "snap",
+        "AppImage",
+        "deb",
+        "rpm"
+      ]
+    }
+  },
+  "builder": {
+    "appId": "com.recdat.raspberry.recdatDesktop",
+    "linux": {
+      "target": "deb",
+      "icon": "../assets/icon.png"
+    }
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "win32"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-appx",
+          "config": {
+            "packageDisplayName": "RECDAT",
+            "packageDescription": "Modulo de escritorio para el sistema RECDAT"
+          }
+        }
+      ]
+    }
   }
 }
